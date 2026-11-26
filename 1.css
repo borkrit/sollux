@@ -1,0 +1,152 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Red Hat Display", sans-serif;
+}
+
+.site-header,
+.site-header * {
+  transition-property: color, background-color, border-color, opacity;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.site-header {
+  color: #fff;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+}
+
+.site-header:hover,
+.site-header.is-active,
+.site-header:focus-within {
+  color: #111;
+  background: #fff;
+  border-bottom-color: rgba(17, 17, 17, 0.08);
+}
+
+.hero-slide {
+  opacity: 0;
+  transform: scale(1.05);
+  transition:
+    opacity 600ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform 800ms ease-out;
+  pointer-events: none;
+}
+
+.hero-slide.is-active {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.lamp-control {
+  -webkit-tap-highlight-color: transparent;
+  transform: translate3d(0, 0, 0);
+  transition:
+    transform 250ms ease-in-out,
+    filter 250ms ease-in-out,
+    opacity 250ms ease-in-out;
+  filter: drop-shadow(0 12px 12px rgba(50, 26, 12, 0));
+  will-change: transform;
+}
+
+.lamp-control.is-lit {
+  filter:
+    drop-shadow(0 18px 28px rgba(255, 184, 82, 0.72))
+    drop-shadow(0 0 24px rgba(255, 218, 138, 0.5));
+}
+
+.lamp-control:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 5px;
+  border-radius: 9999px;
+}
+
+.lamp-control::after {
+  content: "";
+  position: absolute;
+  inset: 18%;
+  border-radius: 9999px;
+  background: rgba(255, 206, 115, 0.42);
+  filter: blur(18px);
+  opacity: 0;
+  transition: opacity 500ms ease-out;
+  pointer-events: none;
+}
+
+.lamp-control.is-lit::after {
+  opacity: 1;
+}
+
+.lamp-control > svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.lamp-light {
+  opacity: 0;
+  transition:
+    opacity 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    fill 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    filter 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.lamp-control.is-lit .lamp-light {
+  opacity: 1;
+}
+
+.progress-fill {
+  transform-origin: left;
+  transform: scaleX(0);
+}
+
+.progress-fill.is-running {
+  animation: fillProgress 3000ms linear forwards;
+}
+
+.slide-progress {
+  width: 56px;
+  height: 2px;
+  overflow: hidden;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.42);
+}
+
+.slide-progress.is-active .progress-fill,
+.slide-progress.is-complete .progress-fill {
+  background: #e7ba38;
+}
+
+.slide-progress:not(.is-active) .progress-fill {
+  transform: scaleX(0);
+}
+
+.slide-progress.is-complete .progress-fill {
+  transform: scaleX(1);
+}
+
+@keyframes fillProgress {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-slide,
+  .lamp-control,
+  .lamp-control::after,
+  .site-header,
+  .site-header * {
+    transition-duration: 1ms !important;
+  }
+
+  .progress-fill.is-running {
+    animation-duration: 1ms !important;
+  }
+}

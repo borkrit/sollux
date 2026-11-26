@@ -3,172 +3,342 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sollux — IdoMods rekrutacja frontend AI</title>
+    <title>SOLLUX - Lampy i oświetlenie</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: { sans: ['"Red Hat Display"', "sans-serif"] }
+          }
+        }
+      };
+    </script>
     <style>
+      :html { scroll-behavior: smooth; }
       body { font-family: "Red Hat Display", sans-serif; }
+
+      .site-header,
+      .site-header * {
+        transition-property: color, background-color, border-color, opacity;
+        transition-duration: 250ms;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .site-header {
+        color: #fff;
+        background: transparent;
+        border-bottom: 1px solid transparent;
+      }
+      .site-header:hover,
+      .site-header.is-active,
+      .site-header:focus-within {
+        color: #111;
+        background: #fff;
+        border-bottom-color: rgba(17, 17, 17, 0.08);
+      }
+
+      .hero-slide {
+        opacity: 0;
+        transform: scale(1.05);
+        transition: opacity 600ms cubic-bezier(0.4, 0, 0.2, 1),
+                    transform 800ms ease-out;
+        pointer-events: none;
+      }
+      .hero-slide.is-active {
+        opacity: 1;
+        transform: scale(1);
+        pointer-events: auto;
+      }
+
+      .lamp-control {
+        -webkit-tap-highlight-color: transparent;
+        transform: translate3d(0, 0, 0);
+        transition: transform 250ms ease-in-out,
+                    filter 250ms ease-in-out,
+                    opacity 250ms ease-in-out;
+        filter: drop-shadow(0 12px 12px rgba(50, 26, 12, 0));
+        will-change: transform;
+      }
+      .lamp-control.is-lit {
+        filter: drop-shadow(0 18px 28px rgba(255, 184, 82, 0.72))
+                drop-shadow(0 0 24px rgba(255, 218, 138, 0.5));
+      }
+      .lamp-control:focus-visible {
+        outline: 3px solid #fff;
+        outline-offset: 5px;
+        border-radius: 9999px;
+      }
+      .lamp-control::after {
+        content: "";
+        position: absolute;
+        inset: 18%;
+        border-radius: 9999px;
+        background: rgba(255, 206, 115, 0.42);
+        filter: blur(18px);
+        opacity: 0;
+        transition: opacity 500ms ease-out;
+        pointer-events: none;
+      }
+      .lamp-control.is-lit::after { opacity: 1; }
+
+      .progress-fill {
+        transform-origin: left;
+        transform: scaleX(0);
+      }
+      .progress-fill.is-running {
+        animation: fillProgress 3000ms linear forwards;
+      }
+      .slide-progress {
+        width: 56px;
+        height: 2px;
+        overflow: hidden;
+        border-radius: 9999px;
+        background: rgba(255, 255, 255, 0.42);
+      }
+      .slide-progress.is-active .progress-fill {
+        background: #E7BA38;
+      }
+      .slide-progress.is-complete .progress-fill {
+        background: #E7BA38;
+      }
+      .slide-progress:not(.is-active) .progress-fill {
+        transform: scaleX(0);
+      }
+      .slide-progress.is-complete .progress-fill {
+        transform: scaleX(1);
+      }
+      @keyframes fillProgress {
+        to { transform: scaleX(1); }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .hero-slide,
+        .lamp-control,
+        .lamp-control::after,
+        .site-header,
+        .site-header * { transition-duration: 1ms !important; }
+        .progress-fill.is-running { animation-duration: 1ms !important; }
+      }
     </style>
   </head>
-  <body class="bg-white text-[#101011]">
-    <header class="bg-white border-b border-[#101011]/10">
-      <div class="mx-auto max-w-[1600px] px-4 lg:px-8 py-4">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-2">
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="shrink-0">
-              <rect width="32" height="32" rx="8" fill="#101011" />
-              <path d="M10 10h12v12H10z" fill="white" />
+  <body class="bg-white text-[#111] antialiased">
+    <header class="site-header fixed inset-x-0 top-0 z-50" data-header>
+      <div class="mx-auto flex h-[72px] max-w-[1440px] items-center gap-6 px-5 lg:h-[82px] lg:px-8">
+        <a href="#" class="shrink-0 text-[22px] font-bold tracking-[0.24em]" aria-label="SOLLUX - strona główna">SOLLUX</a>
+        <nav class="hidden items-center gap-6 text-[13px] font-medium lg:flex" aria-label="Główna nawigacja">
+          <a href="#lampy" class="hover:opacity-70">Lampy</a>
+          <a href="#kolory" class="hover:opacity-70">Kolory</a>
+          <a href="#pomieszczenia" class="hover:opacity-70">Pomieszczenia</a>
+          <a href="#nowosci" class="hover:opacity-70">Nowości</a>
+          <a href="#bestsellery" class="hover:opacity-70">Bestsellery</a>
+          <a href="#promocje" class="hover:opacity-70">Promocje</a>
+        </nav>
+
+        <label class="mx-auto hidden w-full max-w-[420px] md:block">
+          <span class="sr-only">Czego szukasz?</span>
+          <span class="flex h-10 items-center rounded-full border border-current/30 px-4">
+            <input class="min-w-0 flex-1 bg-transparent text-[13px] outline-none placeholder:text-current/70" type="search" placeholder="Czego szukasz?" />
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path>
             </svg>
-            <span class="font-bold text-[21px] leading-[1.1] tracking-tight">SOLLUX</span>
-          </div>
-          <nav class="hidden md:flex items-center gap-8 text-[14px] font-medium text-[#1E1E1E]">
-            <a href="#" class="hover:text-[#101011] transition-colors duration-200 ease-in-out">Strona główna</a>
-            <a href="#" class="hover:text-[#101011] transition-colors duration-200 ease-in-out">Produkty</a>
-            <a href="#" class="hover:text-[#101011] transition-colors duration-200 ease-in-out">O nas</a>
-            <a href="#" class="hover:text-[#101011] transition-colors duration-200 ease-in-out">Kontakt</a>
-          </nav>
+          </span>
+        </label>
+
+        <div class="ml-auto flex items-center gap-3 lg:gap-5">
+          <a href="#konfigurator" class="hidden items-center gap-2 text-[13px] font-medium hover:opacity-70 xl:flex">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+              <circle cx="12" cy="12" r="3"></circle><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"></path>
+            </svg>
+            Stwórz swoją lampę
+          </a>
+          <a href="#konto" class="p-2 hover:opacity-70" aria-label="Moje konto">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+              <circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path>
+            </svg>
+          </a>
+          <a href="#koszyk" class="p-2 hover:opacity-70" aria-label="Koszyk">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+              <path d="M6 8h12l-1 12H7L6 8z"></path><path d="M9 8V6a3 3 0 0 1 6 0v2"></path>
+            </svg>
+          </a>
         </div>
       </div>
     </header>
-        </div>
-      </div>
-    </header>
+
     <main>
-      <section id="vps" class="bg-white py-20 lg:py-32 px-4 lg:px-0" aria-labelledby="vps-heading">
-        <div class="mx-auto max-w-[1600px] w-full">
-          <div class="flex flex-wrap justify-center gap-4 md:gap-8 lg:gap-32 mb-20 lg:mb-28">
-            <article class="flex flex-col items-start gap-3 lg:gap-6 p-4 lg:p-0">
-              <div class="flex shrink-0">
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="shrink-0 text-[#101011]">
-                  <rect width="32" height="32" rx="8" fill="#101011" />
-                  <path d="M10 12h12v8H10zM14 6h4v4h-4z" fill="white" />
-                </svg>
-              </div>
-              <div class="flex flex-col gap-1 lg:gap-2">
-                <h3 class="text-[#101011] font-bold text-[21px] leading-[1.1]">Zwroty nawet do 100 dni</h3>
-                <p class="text-[#1E1E1E] font-medium text-[14px] leading-[1.2]">szybkie i proste</p>
-              </div>
-            </article>
-            <article class="flex flex-col items-start gap-3 lg:gap-6 p-4 lg:p-0">
-              <div class="flex shrink-0">
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="shrink-0 text-[#101011]">
-                  <rect width="32" height="32" rx="8" fill="#101011" />
-                  <path d="M8 4v24h16V4H8zM10 6h12v20H10z" fill="white" stroke="white" stroke-width="2" />
-                </svg>
-              </div>
-              <div class="flex flex-col gap-1 lg:gap-2">
-                <h3 class="text-[#101011] font-bold text-[21px] leading-[1.1]">5 lat gwarancji</h3>
-                <p class="text-[#1E1E1E] font-medium text-[14px] leading-[1.2]">na wszystkie produkty</p>
-              </div>
-            </article>
-            <article class="flex flex-col items-start gap-3 lg:gap-6 p-4 lg:p-0">
-              <div class="flex shrink-0">
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="shrink-0 text-[#101011]">
-                  <rect width="32" height="32" rx="8" fill="#101011" />
-                  <path d="M6 6h20v20H6zM10 10h12v12H10z" fill="white" stroke="white" stroke-width="2" />
-                </svg>
-              </div>
-              <div class="flex flex-col gap-1 lg:gap-2">
-                <h3 class="text-[#101011] font-bold text-[21px] leading-[1.1]">Darmowa dostawa</h3>
-                <p class="text-[#1E1E1E] font-medium text-[14px] leading-[1.2]">już za 299 zł</p>
-              </div>
-            </article>
-            <article class="flex flex-col items-start gap-3 lg:gap-6 p-4 lg:p-0">
-              <div class="flex shrink-0">
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="shrink-0 text-[#101011]">
-                  <rect width="32" height="32" rx="8" fill="#101011" />
-                  <path d="M16 2L20 6H12L16 2ZM16 8L12 12H20L16 8ZM16 14L12 18H20L16 14Z" fill="white" />
-                </svg>
-              </div>
-              <div class="flex flex-col gap-1 lg:gap-2">
-                <h3 class="text-[#101011] font-bold text-[21px] leading-[1.1]">Polskie produkty</h3>
-                <p class="text-[#1E1E1E] font-medium text-[14px] leading-[1.2]">sprawdzona jakość</p>
-              </div>
-            </article>
-            <article class="flex flex-col items-start gap-3 lg:gap-6 p-4 lg:p-0">
-              <div class="flex shrink-0">
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="shrink-0 text-[#101011]">
-                  <rect width="32" height="32" rx="8" fill="#101011" />
-                  <path d="M16 2L22 8V24L16 30L10 24V8L16 2ZM16 6L20 10L16 14L12 10L16 6ZM16 18L20 22L16 26L12 22L16 18Z" fill="white" />
-                </svg>
-              </div>
-              <div class="flex flex-col gap-1 lg:gap-2">
-                <h3 class="text-[#101011] font-bold text-[21px] leading-[1.1]">Oficjalny sklep producenta</h3>
-                <p class="text-[#1E1E1E] font-medium text-[14px] leading-[1.2]">gwarancja satysfakcji</p>
-              </div>
-            </article>
-          </div>
-          <div class="grid grid-cols-1 gap-6 lg:grid-cols-[648px_936px] lg:gap-16">
-            <article class="group relative rounded-[24px] overflow-hidden lg:w-[648px] lg:h-[518px] self-start" aria-label="Marka THORO — Poznaj lampy premium">
-              <div class="absolute inset-0">
-                <img src="./assets/images/thoro-bg.png" alt="Marka THORO — lampy premium" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out" loading="lazy" />
-              </div>
-              <div class="absolute inset-0 bg-black/35"></div>
-              <div class="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
-                <div class="flex flex-col gap-6 lg:gap-24">
-                  <div class="flex flex-col gap-3 lg:gap-12">
-                    <h3 class="text-white font-bold text-[21px] leading-[1.1]">Marka THORO</h3>
-                    <p class="text-white font-bold text-[32px] leading-[1.1]">Poznaj lampy premium</p>
-                  </div>
-                  <button class="inline-block bg-[#101011] text-white px-6 py-3 rounded-full font-bold text-[16px] leading-[1.2] text-center hover:bg-[#4A4A4A] transition-colors duration-200 ease-in-out">Odwiedź sklep THORO</button>
-                </div>
-              </div>
-            </article>
-            <article class="group relative rounded-[24px] overflow-hidden lg:w-[936px] lg:h-[518px] self-start bg-[#72A3F3]" aria-label="Konfigurator 3D — Wybierz projekt i dostosuj go do swojego wnętrza">
-              <div class="absolute top-0 right-0 -translate-x-[60px] lg:translate-x-0 w-full lg:w-[600px] h-full lg:h-auto object-cover hidden lg:block">
-                <img src="./assets/images/konfigurator-macbook.png" alt="MacBook w konfiguratorze 3D" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out" loading="lazy" />
-              </div>
-              <div class="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
-                <div class="flex flex-col gap-6 lg:gap-24">
-                  <div class="flex flex-col gap-3 lg:gap-12">
-                    <h3 class="text-white font-bold text-[21px] leading-[1.1]">Konfigurator 3D</h3>
-                    <p class="text-white font-bold text-[32px] leading-[1.1]">Wybierz projekt i dostosuj go do swojego wnętrza</p>
-                  </div>
-                  <button class="inline-block bg-[#101011] text-white px-6 py-3 rounded-full font-bold text-[16px] leading-[1.2] text-center hover:bg-[#4A4A4A] transition-colors duration-200 ease-in-out">Stwórz swój projekt</button>
-                </div>
-              </div>
-            </article>
-            <article class="group relative rounded-[24px] overflow-hidden lg:w-[936px] lg:h-[518px] self-start bg-[#FDF8EB]" aria-label="Katalog — Odkryj najnowszy katalog">
-              <div class="absolute top-0 right-0 -translate-x-[40px] lg:translate-x-0 w-full lg:w-[560px] h-full lg:h-auto object-cover hidden lg:block">
-                <img src="./assets/images/katalog-ipad.png" alt="iPad z katalogiem SOLLUX" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out" loading="lazy" />
-              </div>
-              <div class="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
-                <div class="flex flex-col gap-6 lg:gap-24">
-                  <div class="flex flex-col gap-3 lg:gap-12">
-                    <h3 class="text-[#101011] font-bold text-[21px] leading-[1.1]">Katalog</h3>
-                    <p class="text-[#101011] font-bold text-[32px] leading-[1.1]">Odkryj najnowszy katalog</p>
-                  </div>
-                  <button class="inline-block bg-[#101011] text-white px-6 py-3 rounded-full font-bold text-[16px] leading-[1.2] text-center hover:bg-[#4A4A4A] transition-colors duration-200 ease-in-out">Sprawdź katalog</button>
-                </div>
-              </div>
-            </article>
-            <article class="group relative rounded-[24px] overflow-hidden lg:w-[648px] lg:h-[518px] self-start bg-[#E8E4DF]" aria-label="SOLLUX SMART — Przymierz lampę w aplikacji">
-              <div class="absolute top-0 left-0 -translate-y-[40px] lg:translate-y-0 w-full lg:w-[260px] h-full lg:h-auto object-cover hidden lg:block">
-                <img src="./assets/images/sollux-smart-phone-small.png" alt="Telefon z aplikacją SOLLUX SMART" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out" loading="lazy" />
-              </div>
-              <div class="absolute top-0 right-0 -translate-y-[20px] lg:translate-y-0 w-full lg:w-[380px] h-full lg:h-auto object-cover hidden lg:block">
-                <img src="./assets/images/sollux-smart-phone-big.png" alt="Telefon z aplikacją SOLLUX SMART" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out" loading="lazy" />
-              </div>
-              <div class="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
-                <div class="flex flex-col gap-6 lg:gap-24">
-                  <div class="flex flex-col gap-3 lg:gap-12">
-                    <h3 class="text-[#101011] font-bold text-[21px] leading-[1.1]">SOLLUX SMART</h3>
-                    <p class="text-[#101011] font-bold text-[32px] leading-[1.1]">Przymierz lampę w aplikacji</p>
-                  </div>
-                  <button class="inline-block bg-[#101011] text-white px-6 py-3 rounded-full font-bold text-[16px] leading-[1.2] text-center hover:bg-[#4A4A4A] transition-colors duration-200 ease-in-out">Pobierz aplikację na telefon</button>
-                </div>
-              </div>
-            </article>
+      <section class="relative h-[720px] overflow-hidden bg-[#b5a58e] md:h-[820px] lg:h-[min(900px,100vh)]" aria-roledescription="carousel" aria-label="Promowane lampy" data-slider>
+        <div class="absolute inset-0" data-slides>
+          <article class="hero-slide is-active absolute inset-0" data-slide aria-label="Slajd 1 z 2">
+            <img class="h-full w-full object-cover object-[58%_center] md:object-center" src="./assets/images/hero.webp" alt="Kolorowe lampy Sollux" />
+            <div class="absolute inset-0 bg-gradient-to-r from-black/35 via-transparent to-transparent"></div>
+
+            <button class="lamp-control absolute left-[10%] top-[18%] h-[30%] w-[27%] cursor-pointer md:left-[12%] md:top-[12%] md:h-[42%] md:w-[30%]" type="button" aria-label="Włącz lub wyłącz lampę górną" aria-pressed="false" data-lamp data-depth="0.7">
+              <span class="absolute inset-0"><img class="h-full w-full object-contain" src="./assets/images/lampa1-658829.png" alt="" /></span>
+            </button>
+            <button class="lamp-control absolute bottom-[8%] left-[18%] h-[34%] w-[30%] cursor-pointer md:bottom-[5%] md:left-[24%] md:h-[42%] md:w-[34%]" type="button" aria-label="Włącz lub wyłącz lampę czerwoną" aria-pressed="false" data-lamp data-depth="1">
+              <span class="absolute inset-0"><img class="h-full w-full object-contain" src="./assets/images/lampa3-1c3404.png" alt="" /></span>
+            </button>
+            <button class="lamp-control absolute bottom-[8%] right-[4%] h-[32%] w-[34%] cursor-pointer md:bottom-[5%] md:right-[8%] md:h-[42%] md:w-[38%]" type="button" aria-label="Włącz lub wyłącz lampę zieloną" aria-pressed="false" data-lamp data-depth="1.15">
+              <span class="absolute inset-0"><img class="h-full w-full object-contain" src="./assets/images/lampa2-14079e.png" alt="" /></span>
+            </button>
+
+            <div class="absolute left-1/2 top-[48%] z-10 w-[calc(100%-40px)] max-w-[1200px] -translate-x-1/2 -translate-y-1/2 text-center text-white">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-[0.18em]">Bestsellery SOLLUX</p>
+              <h1 class="whitespace-nowrap text-[38px] font-medium leading-[1.05] md:text-[58px] lg:text-[56px]"><span class="block md:inline">Kolor i forma</span> <span class="block md:inline">w nowym świetle</span></h1>
+              <a href="#bestsellery" class="mx-auto mt-7 flex h-12 w-fit items-center justify-center rounded-full bg-[#E7BA38] px-7 text-sm font-bold text-[#171717] transition-[background-color,transform] duration-200 ease-in-out hover:bg-[#F5CD55] focus:outline-none focus-visible:ring-2 focus-visible:ring-white">Sprawdź bestsellery</a>
+            </div>
+          </article>
+
+          <article class="hero-slide absolute inset-0" data-slide aria-label="Slajd 2 z 2">
+            <img class="h-full w-full object-cover" src="./assets/images/HERO-Baner2.png" alt="Nowoczesne wnętrze z lampami Sollux" />
+            <div class="absolute inset-0 bg-gradient-to-r from-[#111827]/45 via-transparent to-transparent"></div>
+            <div class="absolute left-1/2 top-[48%] z-10 w-[calc(100%-40px)] max-w-[1200px] -translate-x-1/2 -translate-y-1/2 text-center text-white">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-[0.18em]">Nowa kolekcja</p>
+              <h2 class="whitespace-nowrap text-[38px] font-medium leading-[1.05] md:text-[58px] lg:text-[56px]"><span class="block md:inline">Światło dopasowane</span> <span class="block md:inline">do każdego wnętrza</span></h2>
+              <a href="#nowosci" class="mx-auto mt-7 flex h-12 w-fit items-center justify-center rounded-full bg-white px-7 text-sm font-bold text-[#171717] transition-[background-color,transform] duration-200 ease-in-out hover:bg-[#F3F3F3] focus:outline-none focus-visible:ring-2 focus-visible:ring-white">Zobacz kolekcję</a>
+            </div>
+          </article>
+        </div>
+
+        <button type="button" class="absolute left-4 top-1/2 z-20 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/40 bg-black/10 text-white backdrop-blur-sm hover:bg-white hover:text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-white md:flex lg:left-8" data-prev aria-label="Poprzedni slajd">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg>
+        </button>
+        <button type="button" class="absolute right-4 top-1/2 z-20 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/40 bg-black/10 text-white backdrop-blur-sm hover:bg-white hover:text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-white md:flex lg:right-8" data-next aria-label="Następny slajd">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9 18l6-6-6-6"></path></svg>
+        </button>
+
+        <div class="absolute bottom-6 left-5 right-5 z-20 flex items-end justify-center md:bottom-8 md:left-[7%] md:right-[7%]">
+          <div class="absolute bottom-1 left-1/2 flex -translate-x-1/2 items-center gap-2" data-progress-list aria-label="Wybrane slajdy"></div>
+
+          <div class="ml-auto pointer-events-auto flex h-10 shrink-0 items-center gap-2.5 rounded-full border border-white/15 bg-black/25 px-4 text-[12px] leading-none text-white shadow-[0_8px_24px_rgba(0,0,0,0.12)] backdrop-blur-md" aria-label="Ocena 4.8 na 5">
+            <span class="flex items-center gap-1 font-bold text-[#E7BA38]">
+              4.8
+              <svg class="h-[13px] w-[13px] fill-current" viewBox="0 0 20 20" aria-hidden="true">
+                <path d="M10 1.7l2.45 5.03 5.55.8-4.02 3.92.95 5.53L10 14.39l-4.93 2.59.95-5.53L2 7.53l5.55-.8L10 1.7z"></path>
+              </svg>
+            </span>
+            <span class="hidden text-white/85 sm:inline">Uwielbiany przez klientów</span>
           </div>
         </div>
       </section>
+
+      <section id="bestsellery" class="mx-auto max-w-[1440px] px-5 py-16 lg:px-8 lg:py-20" aria-label="Korzyści i kategorie produktów">
+        <ul class="grid grid-cols-2 gap-6 pb-14 md:grid-cols-3 lg:grid-cols-5">
+          <li><h3 class="font-bold">Zwroty nawet do 100 dni</h3><p class="mt-1 text-sm text-[#666]">szybkie i proste</p></li>
+          <li><h3 class="font-bold">5 lat gwarancji</h3><p class="mt-1 text-sm text-[#666]">na wszystkie produkty</p></li>
+          <li><h3 class="font-bold">Darmowa dostawa</h3><p class="mt-1 text-sm text-[#666]">już za 299 zł</p></li>
+          <li><h3 class="font-bold">Polskie produkty</h3><p class="mt-1 text-sm text-[#666]">sprawdzona jakość</p></li>
+          <li><h3 class="font-bold">Oficjalny sklep producenta</h3><p class="mt-1 text-sm text-[#666]">gwarancja satysfakcji</p></li>
+        </ul>
+
+        <div class="grid gap-5 lg:grid-cols-12">
+          <article class="group relative min-h-[420px] overflow-hidden rounded-[24px] lg:col-span-5">
+            <img class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" src="./assets/images/thoro-bg.png" alt="Marka THORO" loading="lazy" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/65 to-transparent"></div>
+            <div class="absolute inset-x-0 bottom-0 p-7 text-white"><p class="text-sm">Marka THORO</p><h2 class="mt-2 text-[32px] font-bold leading-tight">Poznaj lampy premium</h2><a class="mt-6 inline-flex rounded-full bg-[#111] px-6 py-3 text-sm font-bold" href="#">Odwiedź sklep THORO</a></div>
+          </article>
+          <article class="group relative min-h-[420px] overflow-hidden rounded-[24px] bg-[#72A3F3] lg:col-span-7">
+            <img class="absolute right-0 top-0 h-full w-[75%] object-cover object-right transition-transform duration-500 ease-out group-hover:scale-105" src="./assets/images/konfigurator-macbook.png" alt="Konfigurator 3D" loading="lazy" />
+            <div class="absolute inset-x-0 bottom-0 p-7 text-white"><p class="text-sm">Konfigurator 3D</p><h2 class="mt-2 max-w-[430px] text-[32px] font-bold leading-tight">Wybierz projekt i dostosuj go do wnętrza</h2><a class="mt-6 inline-flex rounded-full bg-[#111] px-6 py-3 text-sm font-bold" href="#">Stwórz swój projekt</a></div>
+          </article>
+          <article class="group relative min-h-[420px] overflow-hidden rounded-[24px] bg-[#FDF8EB] lg:col-span-7">
+            <img class="absolute right-0 top-0 h-full w-[72%] object-cover transition-transform duration-500 ease-out group-hover:scale-105" src="./assets/images/katalog-ipad.png" alt="Najświeższy katalog" loading="lazy" />
+            <div class="absolute inset-x-0 bottom-0 p-7"><p class="text-sm">Katalog</p><h2 class="mt-2 text-[32px] font-bold leading-tight">Odkryj najnowszy katalog</h2><a class="mt-6 inline-flex rounded-full bg-[#111] px-6 py-3 text-sm font-bold text-white" href="#">Sprawdź katalog</a></div>
+          </article>
+          <article class="relative min-h-[420px] overflow-hidden rounded-[24px] bg-[#E8E4DF] lg:col-span-5">
+            <img class="absolute -right-14 top-0 h-[78%] w-[55%] object-contain" src="./assets/images/sollux-smart-phone-big.png" alt="SOLLUX SMART" loading="lazy" />
+            <div class="absolute inset-x-0 bottom-0 p-7"><p class="text-sm">SOLLUX SMART</p><h2 class="mt-2 max-w-[360px] text-[32px] font-bold leading-tight">Przymierz lampę w aplikacji</h2><a class="mt-6 inline-flex rounded-full bg-[#111] px-6 py-3 text-sm font-bold text-white" href="#">Pobierz aplikację</a></div>
+          </article>
+        </div>
+      </section>
     </main>
-    <footer class="bg-[#101011] text-white py-12">
-      <div class="mx-auto max-w-[1600px] px-4 lg:px-8">
-        <p class="text-[14px] text-[#1E1E1E]/60 text-center">SOLLUX — oficjalny sklep producenta. Wszystkie prawa zastrzeżone.</p>
-      </div>
+
+    <footer class="border-t border-[#111]/10 py-10">
+      <div class="mx-auto max-w-[1440px] px-5 text-sm text-[#666] lg:px-8">© 2026 SOLLUX. Oficjalny sklep producenta.</div>
     </footer>
+
+    <script>
+      const slider = document.querySelector("[data-slider]");
+      const slides = [...slider.querySelectorAll("[data-slide]")];
+      let activeIndex = 0;
+      let timer;
+
+      const progressList = slider.querySelector("[data-progress-list]");
+      progressList.innerHTML = slides.map((_, index) =>
+        `<span class="slide-progress ${index === 0 ? "is-active" : ""}" aria-label="Slajd ${index + 1}">
+          <span class="progress-fill ${index === 0 ? "is-running" : ""} block h-full rounded-full"></span>
+        </span>`
+      ).join("");
+      const progressItems = [...progressList.querySelectorAll(".slide-progress")];
+
+      function resetProgress() {
+        progressItems.forEach((item, index) => {
+          item.classList.remove("is-active", "is-complete");
+          const fill = item.querySelector(".progress-fill");
+          fill.classList.remove("is-running");
+          void fill.offsetWidth;
+          if (index < activeIndex) item.classList.add("is-complete");
+        });
+
+        const activeItem = progressItems[activeIndex];
+        activeItem.classList.add("is-active");
+        const activeFill = activeItem.querySelector(".progress-fill");
+        void activeFill.offsetWidth;
+        activeFill.classList.add("is-running");
+      }
+
+      function showSlide(nextIndex) {
+        if (nextIndex === activeIndex) return;
+        slides[activeIndex].classList.remove("is-active");
+        activeIndex = (nextIndex + slides.length) % slides.length;
+        slides[activeIndex].classList.add("is-active");
+        resetProgress();
+      }
+
+      function startAutoplay() {
+        window.clearInterval(timer);
+        timer = window.setInterval(() => showSlide(activeIndex + 1), 3000);
+        resetProgress();
+      }
+
+      slider.querySelector("[data-next]").addEventListener("click", () => {
+        showSlide(activeIndex + 1);
+        startAutoplay();
+      });
+      slider.querySelector("[data-prev]").addEventListener("click", () => {
+        showSlide(activeIndex - 1);
+        startAutoplay();
+      });
+      startAutoplay();
+
+      slider.addEventListener("mouseenter", () => window.clearInterval(timer));
+      slider.addEventListener("mouseleave", startAutoplay);
+
+      const firstSlide = slides[0];
+      const lamps = [...firstSlide.querySelectorAll("[data-lamp]")];
+      lamps.forEach((lamp) => {
+        lamp.addEventListener("click", () => {
+          const isLit = lamp.getAttribute("aria-pressed") === "true";
+          lamp.setAttribute("aria-pressed", String(!isLit));
+          lamp.classList.toggle("is-lit", !isLit);
+        });
+      });
+
+      firstSlide.addEventListener("pointermove", (event) => {
+        if (event.pointerType === "touch") return;
+        const rect = firstSlide.getBoundingClientRect();
+        const x = (event.clientX - rect.left) / rect.width - 0.5;
+        const y = (event.clientY - rect.top) / rect.height - 0.5;
+        lamps.forEach((lamp) => {
+          const depth = Number(lamp.dataset.depth || 1);
+          lamp.style.transform = `translate3d(${x * 18 * depth}px, ${y * 12 * depth}px, 0)`;
+        });
+      });
+      firstSlide.addEventListener("pointerleave", () => {
+        lamps.forEach((lamp) => { lamp.style.transform = "translate3d(0, 0, 0)"; });
+      });
+    </script>
   </body>
 </html>
