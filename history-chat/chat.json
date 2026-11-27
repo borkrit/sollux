@@ -321,7 +321,7 @@
             "output": [
               {
                 "type": "embed",
-                "value": "\ndiff --git a/c:/m/personalProject/sollux/.vscode/mcp.json b/c:/m/personalProject/sollux/.vscode/mcp.json\nindex 0000000..0000000 100644\n--- a/c:/m/personalProject/sollux/.vscode/mcp.json\n+++ b/c:/m/personalProject/sollux/.vscode/mcp.json\n@@ -1,22 +1,22 @@\n {\n   \"inputs\": [\n     {\n       \"id\": \"figma-api-key\",\n       \"type\": \"promptString\",\n       \"description\": \"Figma Personal Access Token\",\n       \"password\": true\n     }\n   ],\n   \"servers\": {\n     \"Framelink_Figma_MCP\": {\n       \"type\": \"stdio\",\n       \"command\": \"npx\",\n       \"args\": [\n         \"-y\",\n         \"figma-developer-mcp\",\n         \"--figma-api-key=${input:figma-api-key}\",\n         \"--stdio\"\n       ]\n     }\n   }\n }\n",
+                "value": "\ndiff --git a/c:/m/personalProject/sollux/.vscode/mcp.json b/c:/m/personalProject/sollux/.vscode/mcp.json\nindex 0000000..0000000 100644\n--- a/c:/m/personalProject/sollux/.vscode/mcp.json\n+++ b/c:/m/personalProject/sollux/.vscode/mcp.json\n@@ -1,22 +1,22 @@\n {\n   \"inputs\": [\n     {\n       \"id\": \"figma-api-key\",\n       \"type\": \"promptString\",\n       \"description\": \"Figma Personal Access Token\",\n       \"password\": true\n     }\n   ],\n   \"servers\": {\n     \"Framelink_Figma_MCP\": {\n       \"type\": \"stdio\",\n       \"command\": \"npx\",\n       \"args\": [\n         \"-y\",\n         \"figma-developer-mcp\",\n         \"--figma-api-key=[REDACTED]}\",\n         \"--stdio\"\n       ]\n     }\n   }\n }\n",
                 "isText": true,
                 "mimeType": "text/plain"
               }
@@ -4948,12 +4948,12 @@
             "label": "Built-In"
           },
           "resultDetails": {
-            "input": "{\n  \"path\": \"c:/Users/web1/AppData/Roaming/Code/agentSessionData/6fe11a4a-62e5-4bfd-8573-f68614a1c862/attachments/aa252a29-1c3a-4687-a428-48f939ffa5a4/file_mcp.json\"\n}",
+            "input": "{\n  \"path\": \"c:/Users/[REDACTED]/AppData/Roaming/Code/agentSessionData/6fe11a4a-62e5-4bfd-8573-f68614a1c862/attachments/aa252a29-1c3a-4687-a428-48f939ffa5a4/file_mcp.json\"\n}",
             "inputLanguage": "json",
             "output": [
               {
                 "type": "embed",
-                "value": "\ndiff --git a/c:/Users/web1/AppData/Roaming/Code/agentSessionData/6fe11a4a-62e5-4bfd-8573-f68614a1c862/attachments/aa252a29-1c3a-4687-a428-48f939ffa5a4/file_mcp.json b/c:/Users/web1/AppData/Roaming/Code/agentSessionData/6fe11a4a-62e5-4bfd-8573-f68614a1c862/attachments/aa252a29-1c3a-4687-a428-48f939ffa5a4/file_mcp.json\nindex 0000000..0000000 100644\n--- a/c:/Users/web1/AppData/Roaming/Code/agentSessionData/6fe11a4a-62e5-4bfd-8573-f68614a1c862/attachments/aa252a29-1c3a-4687-a428-48f939ffa5a4/file_mcp.json\n+++ b/c:/Users/web1/AppData/Roaming/Code/agentSessionData/6fe11a4a-62e5-4bfd-8573-f68614a1c862/attachments/aa252a29-1c3a-4687-a428-48f939ffa5a4/file_mcp.json\n@@ -1,22 +1,22 @@\n {\n   \"inputs\": [\n     {\n       \"id\": \"figma-api-key\",\n       \"type\": \"promptString\",\n       \"description\": \"Figma Personal Access Token\",\n       \"password\": true\n     }\n   ],\n   \"servers\": {\n     \"Framelink_Figma_MCP\": {\n       \"type\": \"stdio\",\n       \"command\": \"npx\",\n       \"args\": [\n         \"-y\",\n         \"figma-developer-mcp\",\n         \"--figma-api-key=${input:figma-api-key}\",\n         \"--stdio\"\n       ]\n     }\n   }\n }\n",
+                "value": "\ndiff --git a/c:/Users/[REDACTED]/AppData/Roaming/Code/agentSessionData/6fe11a4a-62e5-4bfd-8573-f68614a1c862/attachments/aa252a29-1c3a-4687-a428-48f939ffa5a4/file_mcp.json b/c:/Users/[REDACTED]/AppData/Roaming/Code/agentSessionData/6fe11a4a-62e5-4bfd-8573-f68614a1c862/attachments/aa252a29-1c3a-4687-a428-48f939ffa5a4/file_mcp.json\nindex 0000000..0000000 100644\n--- a/c:/Users/[REDACTED]/AppData/Roaming/Code/agentSessionData/6fe11a4a-62e5-4bfd-8573-f68614a1c862/attachments/aa252a29-1c3a-4687-a428-48f939ffa5a4/file_mcp.json\n+++ b/c:/Users/[REDACTED]/AppData/Roaming/Code/agentSessionData/6fe11a4a-62e5-4bfd-8573-f68614a1c862/attachments/aa252a29-1c3a-4687-a428-48f939ffa5a4/file_mcp.json\n@@ -1,22 +1,22 @@\n {\n   \"inputs\": [\n     {\n       \"id\": \"figma-api-key\",\n       \"type\": \"promptString\",\n       \"description\": \"Figma Personal Access Token\",\n       \"password\": true\n     }\n   ],\n   \"servers\": {\n     \"Framelink_Figma_MCP\": {\n       \"type\": \"stdio\",\n       \"command\": \"npx\",\n       \"args\": [\n         \"-y\",\n         \"figma-developer-mcp\",\n         \"--figma-api-key=[REDACTED]}\",\n         \"--stdio\"\n       ]\n     }\n   }\n }\n",
                 "isText": true,
                 "mimeType": "text/plain"
               }
@@ -4968,7 +4968,7 @@
               {
                 "uri": {
                   "$mid": 1,
-                  "path": "/c:/Users/web1/AppData/Roaming/Code/agentSessionData/6fe11a4a-62e5-4bfd-8573-f68614a1c862/attachments/aa252a29-1c3a-4687-a428-48f939ffa5a4/file_mcp.json",
+                  "path": "/c:/Users/[REDACTED]/AppData/Roaming/Code/agentSessionData/6fe11a4a-62e5-4bfd-8573-f68614a1c862/attachments/aa252a29-1c3a-4687-a428-48f939ffa5a4/file_mcp.json",
                   "scheme": "file"
                 }
               }
