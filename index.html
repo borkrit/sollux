@@ -28,16 +28,136 @@
   </script>
 
   <style type="text/tailwindcss">
-    @layer utilities {
-      .grid-spacing-items {
-        @apply gap-3.5 text-[13px];
+    @layer components {
+      .hero-copy-label {
+        @apply mb-3 text-base font-medium uppercase tracking-[0.18em];
       }
 
-      .button-default{
-        @apply text-xs sm:text-base !leading-[1.2] px-6 py-4;
+      .hero-copy-title {
+        @apply text-[clamp(1.75rem,8vw,2.375rem)] font-medium leading-[1.05] md:text-[58px] lg:text-[56px];
+      }
+
+      .header-action-link {
+        @apply p-3;
+      }
+
+      .slider-arrow {
+        @apply absolute top-1/2 z-20 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/40 bg-black/10 text-white backdrop-blur-sm;
+      }
+
+      .benefit-item {
+        @apply flex flex-col items-start;
+      }
+
+      .benefit-icon {
+        @apply mb-3 h-8 w-8 text-neutral-900;
+      }
+
+      .benefit-title {
+        @apply text-base font-bold leading-[1.1] text-[#101011] lg:text-[21px];
+      }
+
+      .benefit-description {
+        @apply mt-0.5 text-sm font-medium leading-[1.2] text-[#1E1E1E];
+      }
+
+      .promo-card {
+        @apply relative flex min-h-[320px] flex-col justify-end overflow-hidden rounded-2xl p-6 sm:min-h-[518px] sm:p-8;
+      }
+
+      .promo-card-image {
+        @apply transform scale-100 transition-transform duration-500 ease-out will-change-transform;
+      }
+
+      .promo-card-content {
+        @apply relative z-10 flex flex-col items-start text-white;
+      }
+
+      .promo-card-content--dark-text {
+        @apply text-neutral-900;
+      }
+
+      .promo-card-label {
+        @apply mb-1 text-base font-medium tracking-wide !leading-5 sm:text-[21px] sm:!leading-[26px];
+      }
+
+      .promo-card-title {
+        @apply mb-4 text-2xl font-medium !leading-[30px] sm:text-[32px] sm:!leading-[38px];
+      }
+
+      .promo-card-button {
+        @apply inline-flex items-center justify-center rounded-full bg-black px-6 py-4 text-xs font-bold !leading-[1.2] text-white transition-colors duration-200 ease-default-ease sm:text-base;
+      }
+
+      .footer-nav-column {
+        @apply border-b border-neutral-100 pb-3 sm:border-none sm:pb-0;
+      }
+
+      .footer-nav-column--last {
+        @apply pb-1 sm:pb-0;
+      }
+
+      .footer-nav-toggle {
+        @apply flex w-full items-center justify-between text-left sm:cursor-default;
+      }
+
+      .footer-nav-toggle-icon {
+        @apply text-base leading-none text-neutral-500 transition-transform duration-200 sm:hidden;
+      }
+
+      .footer-nav-heading {
+        @apply text-xs font-semibold text-neutral-900;
+      }
+
+      .footer-link-list {
+        @apply mt-4 hidden flex-col gap-3.5 text-[13px] text-neutral-700 sm:flex;
+      }
+
+      .footer-section-heading {
+        @apply mb-6 text-[13px] font-bold text-neutral-900;
+      }
+
+      .footer-social-link {
+        @apply flex items-center justify-center rounded-md p-3 text-neutral-900;
+      }
+
+      .footer-payment-logo {
+        @apply w-auto object-contain px-[7px] py-[6px] grayscale opacity-80;
+      }
+
+      .footer-award-logo {
+        @apply w-auto object-contain grayscale opacity-80;
+      }
+
+      .footer-language-item {
+        @apply p-1;
+      }
+
+      .footer-language-link {
+        @apply block h-6 w-6 transform overflow-hidden rounded-full ring-1 ring-black/10;
+      }
+
+      .footer-language-flag {
+        @apply h-full w-full object-cover;
+      }
+
+      .footer-company-badge {
+        @apply inline-flex items-center rounded-[3px] bg-[#18181B] px-2.5 py-1.5 leading-none text-white;
+      }
+
+      .footer-company-badge-label {
+        @apply text-[8px] text-neutral-400;
+      }
+
+      .footer-company-badge-name {
+        @apply text-[11px] font-semibold tracking-tight;
+      }
+
+      .footer-company-badge-accent {
+        @apply text-emerald-400;
       }
     }
-    </style>
+  </style>
 </head>
 
 <body class="bg-white text-white font-sans antialiased">
@@ -50,7 +170,7 @@
         </picture>
       </a>
       <nav class="hidden items-center md:gap-4 2xl:gap-8 text-sm font-bold  lg:flex" aria-label="Główna nawigacja">
-        <a href="#lampy" class="hover:opacity-70  flex gap-1 items-center">Lampy
+        <a href="#lampy" class="header-nav-link flex items-center gap-1">Lampy
 
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -59,7 +179,7 @@
           </svg>
 
         </a>
-        <a href="#kolory" class="hover:opacity-70 flex gap-1 items-center">Kolory
+        <a href="#kolory" class="header-nav-link flex items-center gap-1">Kolory
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M11.3333 6.11333C11.2084 5.98917 11.0395 5.91947 10.8633 5.91947C10.6872 5.91947 10.5182 5.98917 10.3933 6.11333L8.00001 8.47333L5.64001 6.11333C5.5151 5.98917 5.34613 5.91947 5.17001 5.91947C4.99388 5.91947 4.82491 5.98917 4.70001 6.11333C4.63752 6.17531 4.58792 6.24904 4.55408 6.33028C4.52023 6.41152 4.50281 6.49866 4.50281 6.58667C4.50281 6.67467 4.52023 6.76181 4.55408 6.84305C4.58792 6.92429 4.63752 6.99802 4.70001 7.06L7.52667 9.88667C7.58865 9.94915 7.66238 9.99875 7.74362 10.0326C7.82486 10.0664 7.912 10.0839 8.00001 10.0839C8.08801 10.0839 8.17515 10.0664 8.25639 10.0326C8.33763 9.99875 8.41136 9.94915 8.47334 9.88667L11.3333 7.06C11.3958 6.99802 11.4454 6.92429 11.4793 6.84305C11.5131 6.76181 11.5305 6.67467 11.5305 6.58667C11.5305 6.49866 11.5131 6.41152 11.4793 6.33028C11.4454 6.24904 11.3958 6.17531 11.3333 6.11333Z"
@@ -68,7 +188,7 @@
 
 
         </a>
-        <a href="#pomieszczenia" class="hover:opacity-70 flex gap-1 items-center">Pomieszczenia
+        <a href="#pomieszczenia" class="header-nav-link flex items-center gap-1">Pomieszczenia
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M11.3333 6.11333C11.2084 5.98917 11.0395 5.91947 10.8633 5.91947C10.6872 5.91947 10.5182 5.98917 10.3933 6.11333L8.00001 8.47333L5.64001 6.11333C5.5151 5.98917 5.34613 5.91947 5.17001 5.91947C4.99388 5.91947 4.82491 5.98917 4.70001 6.11333C4.63752 6.17531 4.58792 6.24904 4.55408 6.33028C4.52023 6.41152 4.50281 6.49866 4.50281 6.58667C4.50281 6.67467 4.52023 6.76181 4.55408 6.84305C4.58792 6.92429 4.63752 6.99802 4.70001 7.06L7.52667 9.88667C7.58865 9.94915 7.66238 9.99875 7.74362 10.0326C7.82486 10.0664 7.912 10.0839 8.00001 10.0839C8.08801 10.0839 8.17515 10.0664 8.25639 10.0326C8.33763 9.99875 8.41136 9.94915 8.47334 9.88667L11.3333 7.06C11.3958 6.99802 11.4454 6.92429 11.4793 6.84305C11.5131 6.76181 11.5305 6.67467 11.5305 6.58667C11.5305 6.49866 11.5131 6.41152 11.4793 6.33028C11.4454 6.24904 11.3958 6.17531 11.3333 6.11333Z"
@@ -77,9 +197,9 @@
 
 
         </a>
-        <a href="#nowosci" class="hover:opacity-70">Nowości</a>
-        <a href="#bestsellery" class="hover:opacity-70">Bestsellery</a>
-        <a href="#promocje" class="hover:opacity-70">Promocje</a>
+        <a href="#nowosci" class="header-nav-link">Nowości</a>
+        <a href="#bestsellery" class="header-nav-link">Bestsellery</a>
+        <a href="#promocje" class="header-nav-link">Promocje</a>
       </nav>
 
       <label class=" mx-4   2xl:mx-16 hidden w-full max-w-[250px] 2xl:max-w-[370px] md:block">
@@ -96,21 +216,21 @@
       </label>
 
       <div class="flex items-center gap-2">
-        <a href="#konfigurator" class=" items-center gap-2  hover:opacity-70 xl:flex">
+        <a href="#konfigurator" class="header-nav-link items-center gap-2 xl:flex">
           <picture>
             <source srcset="./assets/images/cube.svg" type="image/svg+xml" />
             <img class=" w-6 h-6 max-w-max w-auto object-contain" src="./assets/images/cube.svg" alt="Ikona konfiguratora 3D" />
           </picture>
           <span class="hidden xl:inline ">Stwórz swoją lampę</span>
         </a>
-        <a href="#konto" class="p-3 hover:opacity-70" aria-label="Moje konto">
+        <a href="#konto" class="header-action-link" aria-label="Moje konto">
           <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
             aria-hidden="true">
             <circle cx="12" cy="8" r="4"></circle>
             <path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path>
           </svg>
         </a>
-        <a href="#koszyk" class="p-3 hover:opacity-70" aria-label="Koszyk">
+        <a href="#koszyk" class="header-action-link" aria-label="Koszyk">
           <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
             aria-hidden="true">
             <path d="M6 8h12l-1 12H7L6 8z"></path>
@@ -185,8 +305,8 @@
 
           <div
             class="absolute pointer-events-none left-1/2 top-[48%] z-10  2xl:w-[calc(100%-40px)] max-w-[calc(100%-100px)]  xl:max-w-[1200px] 2xl:max-w-[1600px] -translate-x-1/2 -translate-y-1/2 text-white">
-            <p class="mb-3 text-base font-medium uppercase tracking-[0.18em]">Bestsellery SOLLUX</p>
-            <h1 class="text-[clamp(1.75rem,8vw,2.375rem)] font-medium leading-[1.05] md:text-[58px] lg:text-[56px]">
+            <p class="hero-copy-label">Bestsellery SOLLUX</p>
+            <h1 class="hero-copy-title">
               <span class="block ">Kolor i forma</span>
               <span class="block">w nowym świetle</span>
             </h1>
@@ -202,8 +322,8 @@
           <div class="absolute inset-0 bg-gradient-to-r from-[#111827]/45 via-transparent to-transparent"></div>
           <div
             class="absolute left-1/2 top-[48%] z-10 w-[calc(100%-40px)] max-w-[1600px] -translate-x-1/2 -translate-y-1/2 text-white">
-            <p class="mb-3 text-base font-medium uppercase tracking-[0.18em]">Nowa kolekcja</p>
-            <h2 class="text-[clamp(1.75rem,8vw,2.375rem)] font-medium leading-[1.05] md:text-[58px] lg:text-[56px]">
+            <p class="hero-copy-label">Nowa kolekcja</p>
+            <h2 class="hero-copy-title">
               <span class="block ">Światło dopasowane</span>
               <span class="block ">do każdego
                 wnętrza</span>
@@ -216,7 +336,7 @@
       </div>
 
       <button type="button"
-        class="absolute left-4 top-1/2 z-20 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/40 bg-black/10 text-white backdrop-blur-sm hover:bg-white hover:text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-white md:flex lg:left-8"
+        class="slider-arrow left-4 hover:bg-white hover:text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-white md:flex lg:left-8"
         data-prev aria-label="Poprzedni slajd">
         <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
           aria-hidden="true">
@@ -224,7 +344,7 @@
         </svg>
       </button>
       <button type="button"
-        class="absolute right-4 top-1/2 z-20 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/40 bg-black/10 text-white backdrop-blur-sm hover:bg-white hover:text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-white md:flex lg:right-8"
+        class="slider-arrow right-4 hover:bg-white hover:text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-white md:flex lg:right-8"
         data-next aria-label="Następny slajd">
         <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
           aria-hidden="true">
@@ -300,34 +420,34 @@
       <!-- 1. Pasek korzyści (USP Bar) -->
       <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-8 mb-10 lg:mb-12">
         <!-- Element 1 -->
-        <li class="flex flex-col items-start">
-          <div class="w-8 h-8 mb-3 text-neutral-900" aria-hidden="true">
+        <li class="benefit-item">
+          <div class="benefit-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
               stroke-linejoin="round">
               <path d="M9 14L4 9l5-5" />
               <path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5v0a5.5 5.5 0 0 1-5.5 5.5H11" />
             </svg>
           </div>
-          <h3 class="text-base lg:text-[21px] font-bold text-[#101011] leading-[1.1]">Zwroty nawet do 100 dni</h3>
-          <p class="text-sm font-medium leading-[1.2]  text-[#1E1E1E] mt-0.5">szybkie i proste</p>
+          <h3 class="benefit-title">Zwroty nawet do 100 dni</h3>
+          <p class="benefit-description">szybkie i proste</p>
         </li>
 
         <!-- Element 2 -->
-        <li class="flex flex-col items-start">
-          <div class="w-8 h-8 mb-3 text-neutral-900" aria-hidden="true">
+        <li class="benefit-item">
+          <div class="benefit-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
               stroke-linejoin="round">
               <path d="M12 15l-3.5 2 .9-3.9-3-2.6 4-.3L12 6.5l1.6 3.7 4 .3-3 2.6.9 3.9z" />
               <circle cx="12" cy="12" r="9" />
             </svg>
           </div>
-          <h3 class="text-base lg:text-[21px] font-bold text-[#101011] leading-[1.1]">5 lat gwarancji</h3>
-          <p class="text-sm font-medium leading-[1.2]  text-[#1E1E1E] mt-0.5">na wszystkie produkty</p>
+          <h3 class="benefit-title">5 lat gwarancji</h3>
+          <p class="benefit-description">na wszystkie produkty</p>
         </li>
 
         <!-- Element 3 -->
-        <li class="flex flex-col items-start">
-          <div class="w-8 h-8 mb-3 text-neutral-900" aria-hidden="true">
+        <li class="benefit-item">
+          <div class="benefit-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
               stroke-linejoin="round">
               <path d="M1 3h15v13H1z" />
@@ -336,26 +456,26 @@
               <circle cx="18.5" cy="18.5" r="2.5" />
             </svg>
           </div>
-          <h3 class="text-base lg:text-[21px] font-bold text-[#101011] leading-[1.1]">Darmowa dostawa</h3>
-          <p class="text-sm font-medium leading-[1.2]  text-[#1E1E1E] mt-0.5">już za 299 zł</p>
+          <h3 class="benefit-title">Darmowa dostawa</h3>
+          <p class="benefit-description">już za 299 zł</p>
         </li>
 
         <!-- Element 4 -->
-        <li class="flex flex-col items-start">
-          <div class="w-8 h-8 mb-3 text-neutral-900" aria-hidden="true">
+        <li class="benefit-item">
+          <div class="benefit-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
               stroke-linejoin="round">
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
               <path d="M9 12l2 2 4-4" />
             </svg>
           </div>
-          <h3 class="text-base lg:text-[21px] font-bold text-[#101011] leading-[1.1]">Polskie produkty</h3>
-          <p class="text-sm font-medium leading-[1.2]  text-[#1E1E1E] mt-0.5">sprawdzona jakość</p>
+          <h3 class="benefit-title">Polskie produkty</h3>
+          <p class="benefit-description">sprawdzona jakość</p>
         </li>
 
         <!-- Element 5 -->
-        <li class="flex flex-col items-start">
-          <div class="w-8 h-8 mb-3 text-neutral-900" aria-hidden="true">
+        <li class="benefit-item">
+          <div class="benefit-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
               stroke-linejoin="round">
               <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
@@ -366,8 +486,8 @@
               <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
             </svg>
           </div>
-          <h3 class="text-base lg:text-[21px] font-bold text-[#101011] leading-[1.1]">Oficjalny sklep producenta</h3>
-          <p class="text-sm font-medium leading-[1.2]  text-[#1E1E1E] mt-0.5">gwarancja satysfakcji</p>
+          <h3 class="benefit-title">Oficjalny sklep producenta</h3>
+          <p class="benefit-description">gwarancja satysfakcji</p>
         </li>
       </ul>
 
@@ -376,27 +496,23 @@
 
         <!-- Kafelek 1: Marka THORO (5 kolumn na desktopie) -->
         <article
-          class="group relative md:col-span-1 lg:col-span-5 rounded-2xl overflow-hidden min-h-[320px] sm:min-h-[518px] flex flex-col justify-end p-6 sm:p-8 bg-neutral-200">
+          class="promo-card md:col-span-1 lg:col-span-5 bg-neutral-200">
           <img src="./assets/images/thoro-bg.png" alt="Kobieta trzymająca kubek pod lampą marki THORO"
-            class="absolute inset-0 w-full h-full object-cover object-center transform scale-100 group-hover:scale-110 transition-transform duration-500 ease-out will-change-transform"
+            class="promo-card-image absolute inset-0 h-full w-full object-cover object-center"
             loading="lazy" />
           <!-- Subtelny gradient poprawiający czytelność białego tekstu -->
           <div class="absolute inset-0 bg-gradient-to-t from-black/55 via-black/15 to-transparent pointer-events-none">
           </div>
 
-          <div class="relative z-10 flex flex-col items-start text-white">
-            <span
-              class="text-base sm:text-[21px] font-medium !leading-5 sm:!leading-[26px] tracking-wide opacity-90 mb-1">
+          <div class="promo-card-content">
+            <span class="promo-card-label opacity-90">
               Marka THORO
             </span>
-            <h2 class="text-2xl sm:text-[32px] font-medium !leading-[30px] sm:!leading-[38px] mb-4">
+            <h2 class="promo-card-title">
               Poznaj lampy premium
             </h2>
             <a href="#thoro"
-              class="inline-flex items-center justify-center rounded-full bg-black group-hover:bg-[#4A4A4A] 
-              text-white 
-              button-default
-              font-bold transition-colors duration-200 ease-default-ease focus:outline-none focus-visible:ring-2 focus-visible:ring-white">
+              class="promo-card-button focus:outline-none focus-visible:ring-2 focus-visible:ring-white">
               Odwiedź sklep THORO
             </a>
           </div>
@@ -404,24 +520,19 @@
 
         <!-- Kafelek 2: Konfigurator 3D (7 kolumn na desktopie) -->
         <article
-          class="group relative md:col-span-1 lg:col-span-7 rounded-2xl overflow-hidden min-h-[320px] sm:min-h-[518px] flex flex-col justify-end p-6 sm:p-8 bg-[#72A3F3]">
-          <img src="./assets/images/konfigurator.png" alt="Laptop wyświetlający konfigurator 3D lamp" class="absolute w-auto top-2 right-4 h-full 
-            object-cover object-right transform scale-100
-             group-hover:scale-110 transition-transform 
-             duration-500 ease-out will-change-transform" loading="lazy" />
+          class="promo-card md:col-span-1 lg:col-span-7 bg-[#72A3F3]">
+          <img src="./assets/images/konfigurator.png" alt="Laptop wyświetlający konfigurator 3D lamp"
+            class="promo-card-image absolute top-2 right-4 h-full w-auto object-cover object-right" loading="lazy" />
 
-          <div class="relative z-10 flex flex-col items-start text-white max-w-md">
-            <span
-              class="text-base sm:text-[21px] font-medium !leading-5 sm:!leading-[26px] tracking-wide opacity-95 mb-1">
+          <div class="promo-card-content max-w-md">
+            <span class="promo-card-label opacity-95">
               Konfigurator 3D
             </span>
-            <h2 class="text-2xl sm:text-[32px] font-medium !leading-[30px] sm:!leading-[38px] mb-4">
+            <h2 class="promo-card-title">
               Wybierz projekt i dostosuj go do swojego wnętrza
             </h2>
             <a href="#konfigurator"
-              class="inline-flex items-center justify-center rounded-full bg-black group-hover:bg-[#4A4A4A] text-white 
-              button-default
-              font-bold transition-colors duration-200 ease-default-ease focus:outline-none focus-visible:ring-2 focus-visible:ring-white">
+              class="promo-card-button focus:outline-none focus-visible:ring-2 focus-visible:ring-white">
               Stwórz swój projekt
             </a>
           </div>
@@ -429,21 +540,20 @@
 
         <!-- Kafelek 3: Katalog (7 kolumn na desktopie) -->
         <article
-          class="group relative md:col-span-1 lg:col-span-7 rounded-2xl overflow-hidden min-h-[320px] sm:min-h-[518px] flex flex-col justify-end p-6 sm:p-8 bg-[#FDF8EB]">
+          class="promo-card md:col-span-1 lg:col-span-7 bg-[#FDF8EB]">
           <img src="./assets/images/tablet.png" alt="Tablet z otwartym najnowszym katalogiem lamp Karbon"
-            class="absolute bottom-0 right-[24px] object-cover object-right transform scale-100 group-hover:scale-110 transition-transform duration-500 ease-out will-change-transform"
+            class="promo-card-image absolute bottom-0 right-[24px] object-cover object-right"
             loading="lazy" />
 
-          <div class="relative z-10 flex flex-col items-start text-neutral-900 max-w-sm">
-            <span
-              class="text-base sm:text-[21px] font-medium !leading-5 sm:!leading-[26px] tracking-wide text-neutral-700 mb-1">
+          <div class="promo-card-content promo-card-content--dark-text max-w-sm">
+            <span class="promo-card-label text-neutral-700">
               Katalog
             </span>
-            <h2 class="text-2xl sm:text-[32px] font-medium !leading-[30px] sm:!leading-[38px] mb-4">
+            <h2 class="promo-card-title">
               Odkryj najnowszy katalog
             </h2>
             <a href="#katalog"
-              class="inline-flex items-center justify-center rounded-full bg-black group-hover:bg-[#4A4A4A] text-white button-default font-bold transition-colors duration-200 ease-default-ease focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900">
+              class="promo-card-button focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900">
               Sprawdź katalog
             </a>
           </div>
@@ -451,28 +561,27 @@
 
         <!-- Kafelek 4: SOLLUX SMART (5 kolumn na desktopie) -->
         <article
-          class="group relative md:col-span-1 lg:col-span-5 rounded-2xl overflow-hidden min-h-[320px] sm:min-h-[518px] flex flex-col justify-end p-6 sm:p-8 bg-[#E8E4DF]">
+          class="promo-card md:col-span-1 lg:col-span-5 bg-[#E8E4DF]">
           <img src="./assets/images/Phone-1.png" alt="Smartfony z aplikacją AR do przymierzania lamp"
-            class="absolute z-[9] right-[clamp(10px,1vw,24px)] bottom-0  object-cover object-top transform scale-100 group-hover:scale-110 transition-transform duration-500 ease-out will-change-transform"
+            class="promo-card-image absolute z-[9] right-[clamp(10px,1vw,24px)] bottom-0 object-cover object-top"
             loading="lazy" />
           <img src="./assets/images/Phone-2.png" alt="Smartfony z aplikacją AR do przymierzania lamp"
-            class="absolute z-[0] left-[clamp(16px,2vw,70px)] top-[70px] object-cover object-top transform scale-100 group-hover:scale-110 transition-transform duration-500 ease-out will-change-transform"
+            class="promo-card-image absolute z-[0] left-[clamp(16px,2vw,70px)] top-[70px] object-cover object-top"
             loading="lazy" />
           <!-- Delikatna poświata u dołu dla zapewnienia kontrastu czarnego tekstu -->
           <div
             class="absolute inset-0 bg-gradient-to-t from-[#EBE8E4]/95 via-[#EBE8E4]/40 to-transparent pointer-events-none">
           </div>
 
-          <div class="relative z-[10] flex flex-col items-start text-neutral-900">
-            <span
-              class="text-base sm:text-[21px] font-semibold !leading-5 sm:!leading-[26px] uppercase tracking-wider text-neutral-800 mb-1">
+          <div class="promo-card-content promo-card-content--dark-text">
+            <span class="promo-card-label font-semibold uppercase tracking-wider text-neutral-800">
               SOLLUX SMART
             </span>
-            <h2 class="text-2xl sm:text-[32px] font-medium !leading-[30px] sm:!leading-[38px] mb-4">
+            <h2 class="promo-card-title">
               Przymierz lampę w aplikacji
             </h2>
             <a href="#aplikacja"
-              class="inline-flex items-center justify-center rounded-full bg-black group-hover:bg-[#4A4A4A] text-white button-default font-bold transition-colors duration-200 ease-default-ease focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900">
+              class="promo-card-button focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900">
               Pobierz aplikację na telefon
             </a>
           </div>
@@ -532,37 +641,37 @@
           <ul class="flex items-center gap-[2px]" aria-label="Media społecznościowe">
             <li>
               <a href="#facebook" aria-label="Facebook"
-                class="p-3 flex items-center justify-center rounded-md text-neutral-900 hover:opacity-60 transition-opacity duration-200 ease-default-ease">
+                class="footer-social-link">
                 <picture>
                   <source srcset="./assets/images/facebook.svg" type="image/svg+xml" />
-                  <img src="./assets/images/facebook.svg" alt="Facebook" class="" />
+                  <img src="./assets/images/facebook.svg" alt="Facebook" />
                 </picture>
               </a>
             </li>
             <li>
               <a href="#instagram" aria-label="Instagram"
-                class="p-3 flex items-center justify-center rounded-md text-neutral-900 hover:opacity-60 transition-opacity duration-200 ease-default-ease">
+                class="footer-social-link">
                 <picture>
                   <source srcset="./assets/images/instagram.svg" type="image/svg+xml" />
-                  <img src="./assets/images/instagram.svg" alt="Instagram" class="" />
+                  <img src="./assets/images/instagram.svg" alt="Instagram" />
                 </picture>
               </a>
             </li>
             <li>
               <a href="#tiktok" aria-label="TikTok"
-                class="p-3 flex items-center justify-center rounded-md text-neutral-900 hover:opacity-60 transition-opacity duration-200 ease-default-ease">
+                class="footer-social-link">
                 <picture>
                   <source srcset="./assets/images/Tiktok.svg" type="image/svg+xml" />
-                  <img src="./assets/images/Tiktok.svg" alt="TikTok" class="" />
+                  <img src="./assets/images/Tiktok.svg" alt="TikTok" />
                 </picture>
               </a>
             </li>
             <li>
               <a href="#youtube" aria-label="YouTube"
-                class="p-3 flex items-center justify-center rounded-md text-neutral-900 hover:opacity-60 transition-opacity duration-200 ease-default-ease">
+                class="footer-social-link">
                 <picture>
                   <source srcset="./assets/images/youtube.svg" type="image/svg+xml" />
-                  <img src="./assets/images/youtube.svg" alt="YouTube" class="" />
+                  <img src="./assets/images/youtube.svg" alt="YouTube" />
                 </picture>
               </a>
             </li>
@@ -574,114 +683,114 @@
           class="lg:col-span-9 grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 gap-6 sm:gap-8 lg:gap-24">
 
           <!-- Kolumna 1: Moje zamówienia -->
-          <div class="border-b sm:border-none border-neutral-100 pb-3 sm:pb-0">
+          <div class="footer-nav-column">
             <button type="button" data-footer-toggle
-              class="w-full flex items-center justify-between text-left sm:cursor-default group">
-              <h3 class="text-xs font-semibold text-neutral-900">Moje zamówienia</h3>
-              <span class="sm:hidden text-neutral-500 text-base leading-none transition-transform duration-200">+</span>
+              class="footer-nav-toggle">
+              <h3 class="footer-nav-heading">Moje zamówienia</h3>
+              <span class="footer-nav-toggle-icon">+</span>
             </button>
-            <ul class="hidden sm:flex flex-col grid-spacing-items mt-4 text-neutral-700">
+            <ul class="footer-link-list">
               <li><a href="#status-zamowienia"
-                  class="hover:text-black transition-colors duration-200 ease-default-ease">Status zamówienia</a></li>
+                  class="footer-link">Status zamówienia</a></li>
               <li><a href="#sledzenie-przesylki"
-                  class="hover:text-black transition-colors duration-200 ease-default-ease">Śledzenie przesyłki</a></li>
-              <li><a href="#reklamacja" class="hover:text-black transition-colors duration-200 ease-default-ease">Chcę
+                  class="footer-link">Śledzenie przesyłki</a></li>
+              <li><a href="#reklamacja" class="footer-link">Chcę
                   zareklamować produkt</a></li>
               <li><a href="#wymiana"
-                  class="hover:text-black transition-colors duration-200 ease-default-ease">Informacje o wymianie</a>
+                  class="footer-link">Informacje o wymianie</a>
               </li>
               <li><a href="#kontakt"
-                  class="hover:text-black transition-colors duration-200 ease-default-ease">Kontakt</a></li>
+                  class="footer-link">Kontakt</a></li>
             </ul>
           </div>
 
           <!-- Kolumna 2: Moje konto -->
-          <div class="border-b sm:border-none border-neutral-100 pb-3 sm:pb-0">
+          <div class="footer-nav-column">
             <button type="button" data-footer-toggle
-              class="w-full flex items-center justify-between text-left sm:cursor-default group">
-              <h3 class="text-xs font-semibold text-neutral-900">Moje konto</h3>
-              <span class="sm:hidden text-neutral-500 text-base leading-none transition-transform duration-200">+</span>
+              class="footer-nav-toggle">
+              <h3 class="footer-nav-heading">Moje konto</h3>
+              <span class="footer-nav-toggle-icon">+</span>
             </button>
-            <ul class="hidden sm:flex flex-col grid-spacing-items mt-4 text-neutral-700">
+            <ul class="footer-link-list">
               <li><a href="#rejestracja"
-                  class="hover:text-black transition-colors duration-200 ease-default-ease">Zarejestruj się</a></li>
-              <li><a href="#koszyk" class="hover:text-black transition-colors duration-200 ease-default-ease">Koszyk</a>
+                  class="footer-link">Zarejestruj się</a></li>
+              <li><a href="#koszyk" class="footer-link">Koszyk</a>
               </li>
               <li><a href="#listy-zakupowe"
-                  class="hover:text-black transition-colors duration-200 ease-default-ease">Listy zakupowe</a></li>
+                  class="footer-link">Listy zakupowe</a></li>
               <li><a href="#zakupione-produkty"
-                  class="hover:text-black transition-colors duration-200 ease-default-ease">Lista zakupionych
+                  class="footer-link">Lista zakupionych
                   produktów</a></li>
               <li><a href="#historia-transakcji"
-                  class="hover:text-black transition-colors duration-200 ease-default-ease">Historia transakcji</a></li>
-              <li><a href="#moje-rabaty" class="hover:text-black transition-colors duration-200 ease-default-ease">Moje
+                  class="footer-link">Historia transakcji</a></li>
+              <li><a href="#moje-rabaty" class="footer-link">Moje
                   rabaty</a></li>
             </ul>
           </div>
 
           <!-- Kolumna 3: Regulaminy -->
-          <div class="border-b sm:border-none border-neutral-100 pb-3 sm:pb-0">
+          <div class="footer-nav-column">
             <button type="button" data-footer-toggle
-              class="w-full flex items-center justify-between text-left sm:cursor-default group">
-              <h3 class="text-xs font-semibold text-neutral-900">Regulaminy</h3>
-              <span class="sm:hidden text-neutral-500 text-base leading-none transition-transform duration-200">+</span>
+              class="footer-nav-toggle">
+              <h3 class="footer-nav-heading">Regulaminy</h3>
+              <span class="footer-nav-toggle-icon">+</span>
             </button>
-            <ul class="hidden sm:flex flex-col grid-spacing-items mt-4 text-neutral-700">
+            <ul class="footer-link-list">
               <li><a href="#sposoby-wysylki"
-                  class="hover:text-black transition-colors duration-200 ease-default-ease">Sposoby wysyłki</a></li>
+                  class="footer-link">Sposoby wysyłki</a></li>
               <li><a href="#sposoby-platnosci"
-                  class="hover:text-black transition-colors duration-200 ease-default-ease">Sposoby płatności</a></li>
+                  class="footer-link">Sposoby płatności</a></li>
               <li><a href="#regulamin-sklepu"
-                  class="hover:text-black transition-colors duration-200 ease-default-ease">Regulamin sklepu</a></li>
+                  class="footer-link">Regulamin sklepu</a></li>
               <li><a href="#polityka-prywatnosci"
-                  class="hover:text-black transition-colors duration-200 ease-default-ease">Polityka prywatności</a>
+                  class="footer-link">Polityka prywatności</a>
               </li>
               <li><a href="#polityka-bezpieczenstwa"
-                  class="hover:text-black transition-colors duration-200 ease-default-ease">Polityka bezpieczeństwa</a>
+                  class="footer-link">Polityka bezpieczeństwa</a>
               </li>
-              <li><a href="#cookies" class="hover:text-black transition-colors duration-200 ease-default-ease">Zmień
+              <li><a href="#cookies" class="footer-link">Zmień
                   ustawienia ciasteczek</a></li>
             </ul>
           </div>
 
           <!-- Kolumna 4: Informacje -->
-          <div class="border-b sm:border-none border-neutral-100 pb-3 sm:pb-0">
+          <div class="footer-nav-column">
             <button type="button" data-footer-toggle
-              class="w-full flex items-center justify-between text-left sm:cursor-default group">
-              <h3 class="text-xs font-semibold text-neutral-900">Informacje</h3>
-              <span class="sm:hidden text-neutral-500 text-base leading-none transition-transform duration-200">+</span>
+              class="footer-nav-toggle">
+              <h3 class="footer-nav-heading">Informacje</h3>
+              <span class="footer-nav-toggle-icon">+</span>
             </button>
-            <ul class="hidden sm:flex flex-col grid-spacing-items mt-4 text-neutral-700">
-              <li><a href="#o-nas" class="hover:text-black transition-colors duration-200 ease-default-ease">O nas</a>
+            <ul class="footer-link-list">
+              <li><a href="#o-nas" class="footer-link">O nas</a>
               </li>
-              <li><a href="#faq" class="hover:text-black transition-colors duration-200 ease-default-ease">FAQ</a></li>
-              <li><a href="#kurs-swiatla" class="hover:text-black transition-colors duration-200 ease-default-ease">Kurs
+              <li><a href="#faq" class="footer-link">FAQ</a></li>
+              <li><a href="#kurs-swiatla" class="footer-link">Kurs
                   światła</a></li>
               <li><a href="#inspiracje"
-                  class="hover:text-black transition-colors duration-200 ease-default-ease">Inspiracje</a></li>
+                  class="footer-link">Inspiracje</a></li>
               <li><a href="#marka-premium"
-                  class="hover:text-black transition-colors duration-200 ease-default-ease">Marka premium</a></li>
+                  class="footer-link">Marka premium</a></li>
               <li><a href="#gwarancja"
-                  class="hover:text-black transition-colors duration-200 ease-default-ease">Gwarancja</a></li>
+                  class="footer-link">Gwarancja</a></li>
               <li><a href="#konfigurator-3d"
-                  class="hover:text-black transition-colors duration-200 ease-default-ease">Konfigurator 3D</a></li>
+                  class="footer-link">Konfigurator 3D</a></li>
             </ul>
           </div>
 
           <!-- Kolumna 5: Współpraca -->
-          <div class="pb-1 sm:pb-0">
+          <div class="footer-nav-column--last">
             <button type="button" data-footer-toggle
-              class="w-full flex items-center justify-between text-left sm:cursor-default group">
-              <h3 class="text-xs font-semibold text-neutral-900">Współpraca</h3>
-              <span class="sm:hidden text-neutral-500 text-base leading-none transition-transform duration-200">+</span>
+              class="footer-nav-toggle">
+              <h3 class="footer-nav-heading">Współpraca</h3>
+              <span class="footer-nav-toggle-icon">+</span>
             </button>
-            <ul class="hidden sm:flex flex-col grid-spacing-items mt-4 text-neutral-700">
+            <ul class="footer-link-list">
               <li><a href="#dla-architekta"
-                  class="hover:text-black transition-colors duration-200 ease-default-ease">Dla Architekta</a></li>
-              <li><a href="#modele-3d" class="hover:text-black transition-colors duration-200 ease-default-ease">Modele
+                  class="footer-link">Dla Architekta</a></li>
+              <li><a href="#modele-3d" class="footer-link">Modele
                   3D</a></li>
               <li><a href="#dystrybucja"
-                  class="hover:text-black transition-colors duration-200 ease-default-ease">Dystrybucja</a></li>
+                  class="footer-link">Dystrybucja</a></li>
             </ul>
           </div>
 
@@ -694,110 +803,110 @@
 
         <!-- Blok 1: Płatności i dostawy -->
         <div class="py-8 lg:pr-8">
-          <h3 class="text-[13px] font-bold text-neutral-900 mb-6">Płatności i dostawy</h3>
+          <h3 class="footer-section-heading">Płatności i dostawy</h3>
           <div class="grid grid-cols-[repeat(3,max-content)] lg:grid-cols-[repeat(5,max-content)] gap-2 items-center">
             <img src="./assets/images/pay-visa.png" alt="Visa"
-              class="px-[7px] py-[6px] w-auto object-contain grayscale opacity-80" loading="lazy" />
+              class="footer-payment-logo" loading="lazy" />
             <img src="./assets/images/pay-mastercard.png" alt="Mastercard"
-              class="px-[7px] py-[6px] w-auto object-contain grayscale opacity-80" loading="lazy" />
+              class="footer-payment-logo" loading="lazy" />
             <img src="./assets/images/pay-payu.png" alt="PayU"
-              class="px-[7px] py-[6px] w-auto object-contain grayscale opacity-80" loading="lazy" />
+              class="footer-payment-logo" loading="lazy" />
             <img src="./assets/images/pay-paypal.png" alt="PayPal"
-              class="px-[7px] py-[6px] w-auto object-contain grayscale opacity-80" loading="lazy" />
+              class="footer-payment-logo" loading="lazy" />
             <img src="./assets/images/ship-inpost.png" alt="InPost"
-              class="px-[7px] py-[6px] w-auto object-contain grayscale opacity-80" loading="lazy" />
+              class="footer-payment-logo" loading="lazy" />
 
             <img src="./assets/images/ship-dpd.png" alt="DPD"
-              class="px-[7px] py-[6px] w-auto object-contain grayscale opacity-80" loading="lazy" />
+              class="footer-payment-logo" loading="lazy" />
             <img src="./assets/images/ship-orlen.png" alt="Orlen Paczka"
-              class="px-[7px] py-[6px] w-auto object-contain grayscale opacity-80" loading="lazy" />
+              class="footer-payment-logo" loading="lazy" />
             <img src="./assets/images/ship-dhl.png" alt="DHL"
-              class="px-[7px] py-[6px] w-auto object-contain grayscale opacity-80" loading="lazy" />
+              class="footer-payment-logo" loading="lazy" />
             <img src="./assets/images/ship-gls.png" alt="GLS"
-              class="px-[7px] py-[6px] w-auto object-contain grayscale opacity-80" loading="lazy" />
+              class="footer-payment-logo" loading="lazy" />
             <img src="./assets/images/ship-poczta.png" alt="Poczta Polska"
-              class="px-[7px] py-[6px] w-auto object-contain grayscale opacity-80" loading="lazy" />
+              class="footer-payment-logo" loading="lazy" />
           </div>
         </div>
 
         <!-- Blok 2: Nagrody -->
         <div class="py-8 lg:px-8">
-          <h3 class="text-[13px] font-bold text-neutral-900 mb-6">Nagrody</h3>
+          <h3 class="footer-section-heading">Nagrody</h3>
           <div
             class="grid grid-cols-[repeat(2,max-content)] lg:grid-cols-[repeat(3,max-content)] gap-[3px]  items-center max-w-sm">
             <img src="./assets/images/award-rzetelna-firma.png" alt="Rzetelna Firma"
-              class=" w-auto object-contain grayscale opacity-80" loading="lazy" />
+              class="footer-award-logo" loading="lazy" />
             <img src="./assets/images/award-orly.png" alt="Orły Oświetlenia"
-              class=" w-auto object-contain grayscale opacity-80" loading="lazy" />
+              class="footer-award-logo" loading="lazy" />
             <img src="./assets/images/award-gazele.png" alt="Gazele Biznesu"
-              class=" w-auto object-contain grayscale opacity-80" loading="lazy" />
+              class="footer-award-logo" loading="lazy" />
 
             <img src="./assets/images/award-solidna-firma.png" alt="Solidna Firma 2021"
-              class=" w-auto object-contain grayscale opacity-80" loading="lazy" />
+              class="footer-award-logo" loading="lazy" />
             <img src="./assets/images/award-polski-produkt.png" alt="Polski Produkt Gwarancja Jakości"
-              class=" w-auto object-contain grayscale opacity-80" loading="lazy" />
+              class="footer-award-logo" loading="lazy" />
             <img src="./assets/images/award-firma-zaufania.png" alt="Firma Godna Zaufania"
-              class=" w-auto object-contain grayscale opacity-80" loading="lazy" />
+              class="footer-award-logo" loading="lazy" />
           </div>
         </div>
 
         <!-- Blok 3: Nasze sklepy -->
         <div class="py-8 lg:pl-8">
-          <h3 class="text-[13px] font-bold text-neutral-900 mb-6">Nasze sklepy</h3>
+          <h3 class="footer-section-heading">Nasze sklepy</h3>
           <ul class="flex flex-wrap items-center gap-2" aria-label="Wybór wersji językowej sklepu">
-            <li class="p-1">
+            <li class="footer-language-item">
               <a href="#pl" title="Polska"
-                class="block w-6 h-6 rounded-full overflow-hidden ring-1 ring-black/10 transform hover:scale-110 transition-transform duration-200 ease-out">
-                <img src="./assets/images/Flags-pl.png" alt="Polska" class="w-full h-full object-cover"
+                class="footer-language-link">
+                <img src="./assets/images/Flags-pl.png" alt="Polska" class="footer-language-flag"
                   loading="lazy" />
               </a>
             </li>
-            <li class="p-1">
+            <li class="footer-language-item">
               <a href="#de" title="Deutschland"
-                class="block w-6 h-6 rounded-full overflow-hidden ring-1 ring-black/10 transform hover:scale-110 transition-transform duration-200 ease-out">
-                <img src="./assets/images/Flags-de.png" alt="Niemcy" class="w-full h-full object-cover"
+                class="footer-language-link">
+                <img src="./assets/images/Flags-de.png" alt="Niemcy" class="footer-language-flag"
                   loading="lazy" />
               </a>
             </li>
-            <li class="p-1">
+            <li class="footer-language-item">
               <a href="#es" title="España"
-                class="block w-6 h-6 rounded-full overflow-hidden ring-1 ring-black/10 transform hover:scale-110 transition-transform duration-200 ease-out">
-                <img src="./assets/images/Flags-es.png" alt="Hiszpania" class="w-full h-full object-cover"
+                class="footer-language-link">
+                <img src="./assets/images/Flags-es.png" alt="Hiszpania" class="footer-language-flag"
                   loading="lazy" />
               </a>
             </li>
-            <li class="p-1">
+            <li class="footer-language-item">
               <a href="#ro" title="România"
-                class="block w-6 h-6 rounded-full overflow-hidden ring-1 ring-black/10 transform hover:scale-110 transition-transform duration-200 ease-out">
-                <img src="./assets/images/Flags-ro.png" alt="Rumunia" class="w-full h-full object-cover"
+                class="footer-language-link">
+                <img src="./assets/images/Flags-ro.png" alt="Rumunia" class="footer-language-flag"
                   loading="lazy" />
               </a>
             </li>
-            <li class="p-1">
+            <li class="footer-language-item">
               <a href="#fr" title="France"
-                class="block w-6 h-6 rounded-full overflow-hidden ring-1 ring-black/10 transform hover:scale-110 transition-transform duration-200 ease-out">
-                <img src="./assets/images/Flags-fr.png" alt="Francja" class="w-full h-full object-cover"
+                class="footer-language-link">
+                <img src="./assets/images/Flags-fr.png" alt="Francja" class="footer-language-flag"
                   loading="lazy" />
               </a>
             </li>
-            <li class="p-1">
+            <li class="footer-language-item">
               <a href="#uk" title="United Kingdom"
-                class="block w-6 h-6 rounded-full overflow-hidden ring-1 ring-black/10 transform hover:scale-110 transition-transform duration-200 ease-out">
-                <img src="./assets/images/Flags-uk.png" alt="Wielka Brytania" class="w-full h-full object-cover"
+                class="footer-language-link">
+                <img src="./assets/images/Flags-uk.png" alt="Wielka Brytania" class="footer-language-flag"
                   loading="lazy" />
               </a>
             </li>
-            <li class="p-1">
+            <li class="footer-language-item">
               <a href="#nl" title="Nederland"
-                class="block w-6 h-6 rounded-full overflow-hidden ring-1 ring-black/10 transform hover:scale-110 transition-transform duration-200 ease-out">
-                <img src="./assets/images/Flags-nl.png" alt="Holandia" class="w-full h-full object-cover"
+                class="footer-language-link">
+                <img src="./assets/images/Flags-nl.png" alt="Holandia" class="footer-language-flag"
                   loading="lazy" />
               </a>
             </li>
-            <li class="p-1">
+            <li class="footer-language-item">
               <a href="#se" title="Sverige"
-                class="block w-6 h-6 rounded-full overflow-hidden ring-1 ring-black/10 transform hover:scale-110 transition-transform duration-200 ease-out">
-                <img src="./assets/images/Flags-se.png" alt="Szwecja" class="w-full h-full object-cover"
+                class="footer-language-link">
+                <img src="./assets/images/Flags-se.png" alt="Szwecja" class="footer-language-flag"
                   loading="lazy" />
               </a>
             </li>
@@ -819,19 +928,19 @@
 
           <div class="flex items-center gap-2  shrink-0">
             <a href="#idomods" target="_blank" rel="noopener noreferrer" aria-label="Design and Code IdoMods"
-              class="inline-flex items-center bg-[#18181B] text-white px-2.5 py-1.5 rounded-[3px] leading-none hover:opacity-85 transition-opacity duration-200 ease-default-ease">
+              class="footer-company-badge">
               <div class="flex flex-col">
-                <span class="text-[8px] text-neutral-400">Design&amp;Code</span>
-                <span class="text-[11px] font-semibold tracking-tight">IdoMods <span
-                    class="text-emerald-400">&lt;/&gt;</span></span>
+                <span class="footer-company-badge-label">Design&amp;Code</span>
+                <span class="footer-company-badge-name">IdoMods <span
+                    class="footer-company-badge-accent">&lt;/&gt;</span></span>
               </div>
             </a>
             <a href="#idosell" target="_blank" rel="noopener noreferrer" aria-label="Powered by IdoSell"
-              class="inline-flex items-center bg-[#18181B] text-white px-2.5 py-1.5 rounded-[3px] leading-none hover:opacity-85 transition-opacity duration-200 ease-default-ease">
+              class="footer-company-badge">
               <div class="flex flex-col">
-                <span class="text-[8px] text-neutral-400">Powered by</span>
-                <span class="text-[11px] font-semibold tracking-tight">Ido<span
-                    class="text-emerald-400">Sell.</span></span>
+                <span class="footer-company-badge-label">Powered by</span>
+                <span class="footer-company-badge-name">Ido<span
+                    class="footer-company-badge-accent">Sell.</span></span>
               </div>
             </a>
           </div>
@@ -841,12 +950,12 @@
         <div class="flex flex-wrap items-center gap-x-5 gap-y-1.5 text-[12px] text-neutral-800">
           <span>NIP: 6070082443</span>
           <span>
-            <a href="tel:+48668806323" class="hover:text-black transition-colors duration-200 ease-default-ease">+48 668
+            <a href="tel:+48668806323" class="footer-link">+48 668
               806 323</a>
             <span class="text-neutral-500 ml-1">(Pn - Pt 7:00 - 15:00)</span>
           </span>
           <a href="mailto:sklep@sollux.pl"
-            class="hover:text-black transition-colors duration-200 ease-default-ease">sklep@sollux.pl</a>
+            class="footer-link">sklep@sollux.pl</a>
           <span>Sollux Lighting Sp. z o.o.</span>
           <span>Władysława Łokietka 35, 64-840 Budzyń (POLSKA)</span>
         </div>

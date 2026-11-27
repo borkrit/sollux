@@ -6,6 +6,51 @@ body {
   font-family: "Red Hat Display", sans-serif;
 }
 
+.header-nav-link:hover,
+.header-action-link:hover {
+  opacity: 0.7;
+}
+
+.promo-card:hover .promo-card-image {
+  transform: scale(1.1);
+}
+
+.promo-card:hover .promo-card-button {
+  background-color: #4a4a4a;
+}
+
+.footer-social-link {
+  transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.footer-social-link:hover {
+  opacity: 0.6;
+}
+
+.footer-link {
+  transition: color 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.footer-link:hover {
+  color: #000;
+}
+
+.footer-language-link {
+  transition: transform 200ms ease-out;
+}
+
+.footer-language-link:hover {
+  transform: scale(1.1);
+}
+
+.footer-company-badge {
+  transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.footer-company-badge:hover {
+  opacity: 0.85;
+}
+
 .site-header,
 .site-header * {
   transition-property: color, background-color, border-color, opacity;
