@@ -15,7 +15,16 @@
   <script>
     tailwind.config = {
       theme: {
+        
         extend: {
+          screens: {
+        'sm': '640px',
+        'md': '768px',
+        'lg': '1024px',
+        'xl': '1280px',
+        'laptop': '1440px',
+        '2xl': '1660px', // теперь 2xl включится только на экранах шире 1660px
+      },
           fontFamily: {
             sans: ['"Red Hat Display"', 'sans-serif'],
           },
@@ -304,7 +313,7 @@
           </button>
 
           <div
-            class="absolute pointer-events-none left-1/2 top-[48%] z-10  2xl:w-[calc(100%-40px)] max-w-[calc(100%-100px)]  xl:max-w-[1200px] 2xl:max-w-[1600px] -translate-x-1/2 -translate-y-1/2 text-white">
+            class="absolute pointer-events-none w-full left-1/2 top-[48%] z-10  2xl:w-[calc(100%-40px)] max-w-[calc(100%-100px)]  xl:max-w-[1200px] 2xl:max-w-[1600px] -translate-x-1/2 -translate-y-1/2 text-white">
             <p class="hero-copy-label">Bestsellery SOLLUX</p>
             <h1 class="hero-copy-title">
               <span class="block ">Kolor i forma</span>
@@ -321,7 +330,7 @@
             alt="Nowoczesne wnętrze z lampami Sollux" />
           <div class="absolute inset-0 bg-gradient-to-r from-[#111827]/45 via-transparent to-transparent"></div>
           <div
-            class="absolute left-1/2 top-[48%] z-10 w-[calc(100%-40px)] max-w-[1600px] -translate-x-1/2 -translate-y-1/2 text-white">
+                        class="absolute pointer-events-none w-full left-1/2 top-[48%] z-10  2xl:w-[calc(100%-40px)] max-w-[calc(100%-100px)]  xl:max-w-[1200px] 2xl:max-w-[1600px] -translate-x-1/2 -translate-y-1/2 text-white">
             <p class="hero-copy-label">Nowa kolekcja</p>
             <h2 class="hero-copy-title">
               <span class="block ">Światło dopasowane</span>
